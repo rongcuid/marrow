@@ -17,27 +17,27 @@ static void schemaReleaseBasic(struct ArrowSchema *pSchema) {
   pSchema->release = NULL;
 }
 
-#define def_marr_schema_basic(ty, fmt_str)                          \
-  bool marrSchema##ty(struct ArrowSchema *schema, const char *name, \
-                      const char *metadata, int64_t flags) {        \
-    bool ok = false;                                                \
-    char *cname;                                                    \
-    if (!marrCloneCStr(&cname, name)) goto finally;                 \
-    char *cmeta;                                                    \
-    if (!marrCloneCStr(&cmeta, metadata)) goto free_cname;          \
-    *schema = (struct ArrowSchema){                                 \
-        .format = fmt_str,                                          \
-        .name = cname,                                              \
-        .metadata = cmeta,                                          \
-        .release = &schemaReleaseBasic,                             \
-    };                                                              \
-    ok = true;                                                      \
-  free_cmeta:                                                       \
-    if (!ok) free(cmeta);                                           \
-  free_cname:                                                       \
-    if (!ok) free(cname);                                           \
-  finally:                                                          \
-    return ok;                                                      \
+#define def_marr_schema_basic(ty, fmt_str)                            \
+  bool marrSchema##ty(struct ArrowSchema *pSchema, const char *zName, \
+                      const char *zMetadata, int64_t flags) {         \
+    bool ok = false;                                                  \
+    char *cname;                                                      \
+    if (!marrCloneCStr(&cname, zName)) goto finally;                  \
+    char *cmeta;                                                      \
+    if (!marrCloneCStr(&cmeta, zMetadata)) goto free_cname;           \
+    *pSchema = (struct ArrowSchema){                                  \
+        .format = fmt_str,                                            \
+        .name = cname,                                                \
+        .metadata = cmeta,                                            \
+        .release = &schemaReleaseBasic,                               \
+    };                                                                \
+    ok = true;                                                        \
+  free_cmeta:                                                         \
+    if (!ok) free(cmeta);                                             \
+  free_cname:                                                         \
+    if (!ok) free(cname);                                             \
+  finally:                                                            \
+    return ok;                                                        \
   }
 
 def_marr_schema_basic(Null, "n");
