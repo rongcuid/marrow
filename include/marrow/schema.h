@@ -48,11 +48,11 @@ bool marrSchemaLargeUtf8(struct ArrowSchema *pSchema, const char *zName,
 bool marrSchemaUtf8View(struct ArrowSchema *pSchema, const char *zName,
                         const char *zMetadata, int64_t flags);
 bool marrSchemaDecimal128(struct ArrowSchema *pSchema, const char *zName,
-                          const char *zMetadata, ptrdiff_t precision,
-                          ptrdiff_t scale, int64_t flags);
+                          const char *zMetadata, int64_t flags,
+                          ptrdiff_t precision, ptrdiff_t scale);
 bool marrSchemaDecimal(struct ArrowSchema *pSchema, const char *zName,
-                       const char *zMetadata, ptrdiff_t bitwidth,
-                       ptrdiff_t precision, ptrdiff_t scale, int64_t flags);
+                       const char *zMetadata, ptrdiff_t bitwidth, int64_t flags,
+                       ptrdiff_t precision, ptrdiff_t scale);
 ////// Temporals
 bool marrSchemaDate32(struct ArrowSchema *pSchema, const char *zName,
                       const char *zMetadata, int64_t flags);
@@ -86,11 +86,11 @@ bool marrSchemaDurationUs(struct ArrowSchema *pSchema, const char *zName,
                           const char *zMetadata, int64_t flags);
 bool marrSchemaDurationNs(struct ArrowSchema *pSchema, const char *zName,
                           const char *zMetadata, int64_t flags);
-bool marrSchemaDurationMonth(struct ArrowSchema *pSchema, const char *zName,
+bool marrSchemaIntervalMonth(struct ArrowSchema *pSchema, const char *zName,
                              const char *zMetadata, int64_t flags);
-bool marrSchemaDurationDayTime(struct ArrowSchema *pSchema, const char *zName,
+bool marrSchemaIntervalDayTime(struct ArrowSchema *pSchema, const char *zName,
                                const char *zMetadata, int64_t flags);
-bool marrSchemaDurationMonthDayNs(struct ArrowSchema *pSchema,
+bool marrSchemaIntervalMonthDayNs(struct ArrowSchema *pSchema,
                                   const char *zName, const char *zMetadata,
                                   int64_t flags);
 ////// Nested types
