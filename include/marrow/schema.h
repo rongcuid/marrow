@@ -7,7 +7,7 @@
 
 #include "marrow/arrow.h"
 
-////// Basic Primitives
+////// Primitives
 bool marrSchemaNull(struct ArrowSchema *pSchema, const char *zName,
                     const char *zMetadata, int64_t flags);
 bool marrSchemaBoolean(struct ArrowSchema *pSchema, const char *zName,
@@ -34,7 +34,6 @@ bool marrSchemaFloat32(struct ArrowSchema *pSchema, const char *zName,
                        const char *zMetadata, int64_t flags);
 bool marrSchemaFloat64(struct ArrowSchema *pSchema, const char *zName,
                        const char *zMetadata, int64_t flags);
-////// Binaries
 bool marrSchemaBinary(struct ArrowSchema *pSchema, const char *zName,
                       const char *zMetadata, int64_t flags);
 bool marrSchemaLargeBinary(struct ArrowSchema *pSchema, const char *zName,
@@ -53,7 +52,6 @@ bool marrSchemaDecimal128(struct ArrowSchema *pSchema, const char *zName,
 bool marrSchemaDecimal(struct ArrowSchema *pSchema, const char *zName,
                        const char *zMetadata, ptrdiff_t bitwidth, int64_t flags,
                        ptrdiff_t precision, ptrdiff_t scale);
-////// Temporals
 bool marrSchemaDate32(struct ArrowSchema *pSchema, const char *zName,
                       const char *zMetadata, int64_t flags);
 bool marrSchemaDate64(struct ArrowSchema *pSchema, const char *zName,
