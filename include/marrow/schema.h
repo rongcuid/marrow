@@ -5,7 +5,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "arrow.h"
+#include "marrow/arrow.h"
 
 ////// Basic Primitives
 bool marrSchemaNull(struct ArrowSchema *pSchema, const char *zName,
