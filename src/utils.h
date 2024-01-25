@@ -3,6 +3,15 @@
 
 #include <stdbool.h>
 
-bool marrow_copy_cstr(char **new_str, const char *str);
+#include "error.h"
+
+/**
+ * @brief Clones a null-terminated string. May allocate memory.
+ *
+ * @param pNewStr Newly allocated string, or NULL if `*str` is NULL.
+ * @param zStr C string to be cloned. May be NULL
+ * @return Success
+ */
+bool marrCloneCStr(char **pNewStr, const char *zStr);
 
 #endif

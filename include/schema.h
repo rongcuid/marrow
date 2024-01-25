@@ -8,117 +8,116 @@
 #include "arrow.h"
 
 ////// Basic Primitives
-bool marr_schema_null(struct ArrowSchema *schema, const char *name,
-                      const char *metadata);
-bool marr_schema_boolean(struct ArrowSchema *schema, const char *name,
-                         const char *metadata, int64_t flags);
-bool marr_schema_int8(struct ArrowSchema *schema, const char *name,
-                      const char *metadata, int64_t flags);
-bool marr_schema_uint8(struct ArrowSchema *schema, const char *name,
+bool marrSchemaNull(struct ArrowSchema *schema, const char *name,
+                    const char *metadata, int64_t flags);
+bool marrSchemaBoolean(struct ArrowSchema *schema, const char *name,
                        const char *metadata, int64_t flags);
-bool marr_schema_int16(struct ArrowSchema *schema, const char *name,
-                       const char *metadata, int64_t flags);
-bool marr_schema_uint16(struct ArrowSchema *schema, const char *name,
-                        const char *metadata, int64_t flags);
-bool marr_schema_int32(struct ArrowSchema *schema, const char *name,
-                       const char *metadata, int64_t flags);
-bool marr_schema_uint32(struct ArrowSchema *schema, const char *name,
-                        const char *metadata, int64_t flags);
-bool marr_schema_int64(struct ArrowSchema *schema, const char *name,
-                       const char *metadata, int64_t flags);
-bool marr_schema_uint64(struct ArrowSchema *schema, const char *name,
-                        const char *metadata, int64_t flags);
-bool marr_schema_float16(struct ArrowSchema *schema, const char *name,
-                         const char *metadata, int64_t flags);
-bool marr_schema_float32(struct ArrowSchema *schema, const char *name,
-                         const char *metadata, int64_t flags);
-bool marr_schema_float64(struct ArrowSchema *schema, const char *name,
-                         const char *metadata, int64_t flags);
-////// Binaries
-bool marr_schema_binary(struct ArrowSchema *schema, const char *name,
-                        const char *metadata, int64_t flags);
-bool marr_schema_large_binary(struct ArrowSchema *schema, const char *name,
-                              const char *metadata, int64_t flags);
-bool marr_schema_binary_view(struct ArrowSchema *schema, const char *name,
-                             const char *metadata, int64_t flags);
-bool marr_schema_utf8(struct ArrowSchema *schema, const char *name,
-                      const char *metadata, int64_t flags);
-bool marr_schema_large_utf8(struct ArrowSchema *schema, const char *name,
-                            const char *metadata, int64_t flags);
-bool marr_schema_utf8_view(struct ArrowSchema *schema, const char *name,
-                           const char *metadata, int64_t flags);
-bool marr_schema_decimal128(struct ArrowSchema *schema, const char *name,
-                            const char *metadata, ptrdiff_t precision,
-                            ptrdiff_t scale, int64_t flags);
-bool marr_schema_decimal(struct ArrowSchema *schema, const char *name,
-                         const char *metadata, ptrdiff_t bitwidth,
-                         ptrdiff_t precision, ptrdiff_t scale, int64_t flags);
-////// Temporals
-bool marr_schema_date32(struct ArrowSchema *schema, const char *name,
-                        const char *metadata, int64_t flags);
-bool marr_schema_date64(struct ArrowSchema *schema, const char *name,
-                        const char *metadata, int64_t flags);
-bool marr_schema_time32_s(struct ArrowSchema *schema, const char *name,
-                          const char *metadata, int64_t flags);
-bool marr_schema_time32_ms(struct ArrowSchema *schema, const char *name,
-                           const char *metadata, int64_t flags);
-bool marr_schema_time64_us(struct ArrowSchema *schema, const char *name,
-                           const char *metadata, int64_t flags);
-bool marr_schema_time64_ns(struct ArrowSchema *schema, const char *name,
-                           const char *metadata, int64_t flags);
-bool marr_schema_timestamp_s(struct ArrowSchema *schema, const char *name,
-                             const char *metadata, int64_t flags,
-                             const char *timezone);
-bool marr_schema_timestamp_ms(struct ArrowSchema *schema, const char *name,
-                              const char *metadata, int64_t flags,
-                              const char *timezone);
-bool marr_schema_timestamp_us(struct ArrowSchema *schema, const char *name,
-                              const char *metadata, int64_t flags,
-                              const char *timezone);
-bool marr_schema_timestamp_ns(struct ArrowSchema *schema, const char *name,
-                              const char *metadata, int64_t flags,
-                              const char *timezone);
-bool marr_schema_duration_s(struct ArrowSchema *schema, const char *name,
-                            const char *metadata, int64_t flags);
-bool marr_schema_duration_ms(struct ArrowSchema *schema, const char *name,
-                             const char *metadata, int64_t flags);
-bool marr_schema_duration_us(struct ArrowSchema *schema, const char *name,
-                             const char *metadata, int64_t flags);
-bool marr_schema_duration_ns(struct ArrowSchema *schema, const char *name,
-                             const char *metadata, int64_t flags);
-bool marr_schema_duration_month(struct ArrowSchema *schema, const char *name,
-                                const char *metadata, int64_t flags);
-bool marr_schema_duration_day_time(struct ArrowSchema *schema, const char *name,
-                                   const char *metadata, int64_t flags);
-bool marr_schema_duration_month_day_ns(struct ArrowSchema *schema,
-                                       const char *name, const char *metadata,
-                                       int64_t flags);
-////// Nested types
-bool marr_schema_list(struct ArrowSchema *schema, const char *name,
-                      const char *metadata, int64_t flags,
-                      struct ArrowSchema *child);
-bool marr_schema_large_list(struct ArrowSchema *schema, const char *name,
-                            const char *metadata, int64_t flags,
-                            struct ArrowSchema *child);
-bool marr_schema_list_view(struct ArrowSchema *schema, const char *name,
-                           const char *metadata, int64_t flags,
-                           struct ArrowSchema *child);
-bool marr_schema_large_list_view(struct ArrowSchema *schema, const char *name,
-                                 const char *metadata, int64_t flags,
-                                 struct ArrowSchema *child);
-bool marr_schema_fixedlist(struct ArrowSchema *schema, const char *name,
-                           const char *metadata, int64_t flags,
-                           struct ArrowSchema *child, ptrdiff_t size);
-// TODO
-bool marr_schema_struct(struct ArrowSchema *schema, const char *name,
-                        const char *metadata, int64_t flags);
-bool marr_schema_map(struct ArrowSchema *schema, const char *name,
+bool marrSchemaInt8(struct ArrowSchema *schema, const char *name,
+                    const char *metadata, int64_t flags);
+bool marrSchemaUInt8(struct ArrowSchema *schema, const char *name,
                      const char *metadata, int64_t flags);
-bool marr_schema_dense_union(struct ArrowSchema *schema, const char *name,
-                             const char *metadata, int64_t flags);
-bool marr_schema_sparse_union(struct ArrowSchema *schema, const char *name,
-                              const char *metadata, int64_t flags);
-bool marr_schema_run_end(struct ArrowSchema *schema, const char *name,
+bool marrSchemaInt16(struct ArrowSchema *schema, const char *name,
+                     const char *metadata, int64_t flags);
+bool marrSchemaUInt16(struct ArrowSchema *schema, const char *name,
+                      const char *metadata, int64_t flags);
+bool marrSchemaInt32(struct ArrowSchema *schema, const char *name,
+                     const char *metadata, int64_t flags);
+bool marrSchemaUInt32(struct ArrowSchema *schema, const char *name,
+                      const char *metadata, int64_t flags);
+bool marrSchemaInt64(struct ArrowSchema *schema, const char *name,
+                     const char *metadata, int64_t flags);
+bool marrSchemaUInt64(struct ArrowSchema *schema, const char *name,
+                      const char *metadata, int64_t flags);
+bool marrSchemaFloat16(struct ArrowSchema *schema, const char *name,
+                       const char *metadata, int64_t flags);
+bool marrSchemaFloat32(struct ArrowSchema *schema, const char *name,
+                       const char *metadata, int64_t flags);
+bool marrSchemaFloat64(struct ArrowSchema *schema, const char *name,
+                       const char *metadata, int64_t flags);
+////// Binaries
+bool marrSchemaBinary(struct ArrowSchema *schema, const char *name,
+                      const char *metadata, int64_t flags);
+bool marrSchemaLargeBinary(struct ArrowSchema *schema, const char *name,
+                           const char *metadata, int64_t flags);
+bool marrSchemaBinaryView(struct ArrowSchema *schema, const char *name,
+                          const char *metadata, int64_t flags);
+bool marrSchemaUtf8(struct ArrowSchema *schema, const char *name,
+                    const char *metadata, int64_t flags);
+bool marrSchemaLargeUtf8(struct ArrowSchema *schema, const char *name,
                          const char *metadata, int64_t flags);
+bool marrSchemaUtf8View(struct ArrowSchema *schema, const char *name,
+                        const char *metadata, int64_t flags);
+bool marrSchemaDecimal128(struct ArrowSchema *schema, const char *name,
+                          const char *metadata, ptrdiff_t precision,
+                          ptrdiff_t scale, int64_t flags);
+bool marrSchemaDecimal(struct ArrowSchema *schema, const char *name,
+                       const char *metadata, ptrdiff_t bitwidth,
+                       ptrdiff_t precision, ptrdiff_t scale, int64_t flags);
+////// Temporals
+bool marrSchemaDate32(struct ArrowSchema *schema, const char *name,
+                      const char *metadata, int64_t flags);
+bool marrSchemaDate64(struct ArrowSchema *schema, const char *name,
+                      const char *metadata, int64_t flags);
+bool marrSchemaTime32S(struct ArrowSchema *schema, const char *name,
+                       const char *metadata, int64_t flags);
+bool marrSchemaTime32Ms(struct ArrowSchema *schema, const char *name,
+                        const char *metadata, int64_t flags);
+bool marrSchemaTime64Us(struct ArrowSchema *schema, const char *name,
+                        const char *metadata, int64_t flags);
+bool marrSchemaTime64Ns(struct ArrowSchema *schema, const char *name,
+                        const char *metadata, int64_t flags);
+bool marrSchemaTimestampS(struct ArrowSchema *schema, const char *name,
+                          const char *metadata, int64_t flags,
+                          const char *timezone);
+bool marrSchemaTimestampMs(struct ArrowSchema *schema, const char *name,
+                           const char *metadata, int64_t flags,
+                           const char *timezone);
+bool marrSchemaTimestampUs(struct ArrowSchema *schema, const char *name,
+                           const char *metadata, int64_t flags,
+                           const char *timezone);
+bool marrSchemaTimestampNs(struct ArrowSchema *schema, const char *name,
+                           const char *metadata, int64_t flags,
+                           const char *timezone);
+bool marrSchemaDurationS(struct ArrowSchema *schema, const char *name,
+                         const char *metadata, int64_t flags);
+bool marrSchemaDurationMs(struct ArrowSchema *schema, const char *name,
+                          const char *metadata, int64_t flags);
+bool marrSchemaDurationUs(struct ArrowSchema *schema, const char *name,
+                          const char *metadata, int64_t flags);
+bool marrSchemaDurationNs(struct ArrowSchema *schema, const char *name,
+                          const char *metadata, int64_t flags);
+bool marrSchemaDurationMonth(struct ArrowSchema *schema, const char *name,
+                             const char *metadata, int64_t flags);
+bool marrSchemaDurationDayTime(struct ArrowSchema *schema, const char *name,
+                               const char *metadata, int64_t flags);
+bool marrSchemaDurationMonthDayNs(struct ArrowSchema *schema, const char *name,
+                                  const char *metadata, int64_t flags);
+////// Nested types
+bool marrSchemaList(struct ArrowSchema *schema, const char *name,
+                    const char *metadata, int64_t flags,
+                    struct ArrowSchema *child);
+bool marrSchemaLargeList(struct ArrowSchema *schema, const char *name,
+                         const char *metadata, int64_t flags,
+                         struct ArrowSchema *child);
+bool marrSchemaListView(struct ArrowSchema *schema, const char *name,
+                        const char *metadata, int64_t flags,
+                        struct ArrowSchema *child);
+bool marrSchemaLargeListView(struct ArrowSchema *schema, const char *name,
+                             const char *metadata, int64_t flags,
+                             struct ArrowSchema *child);
+bool marrSchemaFixedList(struct ArrowSchema *schema, const char *name,
+                         const char *metadata, int64_t flags,
+                         struct ArrowSchema *child, ptrdiff_t size);
+// TODO
+bool marrSchemaStruct(struct ArrowSchema *schema, const char *name,
+                      const char *metadata, int64_t flags);
+bool marrSchemaMap(struct ArrowSchema *schema, const char *name,
+                   const char *metadata, int64_t flags);
+bool marrSchemaDenseUnion(struct ArrowSchema *schema, const char *name,
+                          const char *metadata, int64_t flags);
+bool marrSchemaSparseUnion(struct ArrowSchema *schema, const char *name,
+                           const char *metadata, int64_t flags);
+bool marrSchemaRunEnd(struct ArrowSchema *schema, const char *name,
+                      const char *metadata, int64_t flags);
 
 #endif  // MARROW_SCHEMA_H_
