@@ -30,38 +30,38 @@ static void schemaReleaseFormatted(struct ArrowSchema *pSchema) {
   pSchema->release = NULL;
 }
 
-#define marr_decl_schema_primitive(ty)                                \
-  bool marrSchema##ty(struct ArrowSchema *pSchema, const char *zName, \
-                      const char *zMetadata, int64_t flags)
-#define marr_decl_schema_primitive_args(ty, ...)                      \
-  bool marrSchema##ty(struct ArrowSchema *pSchema, const char *zName, \
-                      const char *zMetadata, int64_t flags, __VA_ARGS__)
+#define marr_decl_schema_primitive(ty)                                        \
+  ArrowSchemaCreated marrSchema##ty(const char *zName, const char *zMetadata, \
+                                    int64_t flags)
+#define marr_decl_schema_primitive_args(ty, ...)                              \
+  ArrowSchemaCreated marrSchema##ty(const char *zName, const char *zMetadata, \
+                                    int64_t flags, __VA_ARGS__)
 
 #define marr_decl_def_schema_primitive(ty, fmt_str)         \
   marr_decl_schema_primitive(ty) {                          \
-    bool ok = false;                                        \
+    ArrowSchemaCreated result = {0};                        \
     char *cname;                                            \
     if (!marrCloneCStr(&cname, zName)) goto finally;        \
     char *cmeta;                                            \
     if (!marrCloneCStr(&cmeta, zMetadata)) goto free_cname; \
-    *pSchema = (struct ArrowSchema){                        \
+    result.value = (struct ArrowSchema){                    \
         .format = fmt_str,                                  \
         .name = cname,                                      \
         .metadata = cmeta,                                  \
         .release = &schemaReleaseBasic,                     \
     };                                                      \
-    ok = true;                                              \
+    result.ok = true;                                       \
   free_cmeta:                                               \
-    if (!ok) free(cmeta);                                   \
+    if (!result.ok) free(cmeta);                            \
   free_cname:                                               \
-    if (!ok) free(cname);                                   \
+    if (!result.ok) free(cname);                            \
   finally:                                                  \
-    return ok;                                              \
+    return result;                                          \
   }
 
 #define marr_def_schema_primitive_formatted(fmt_str, ...)                 \
   do {                                                                    \
-    bool ok = false;                                                      \
+    ArrowSchemaCreated result = {0};                                      \
     char *cname;                                                          \
     if (!marrCloneCStr(&cname, zName)) goto finally;                      \
     char *cmeta;                                                          \
@@ -70,20 +70,21 @@ static void schemaReleaseFormatted(struct ArrowSchema *pSchema) {
     char *fmt = malloc(size + 1);                                         \
     if (!fmt) goto free_cmeta;                                            \
     if (snprintf(fmt, size + 1, fmt_str, __VA_ARGS__) < 0) goto free_fmt; \
-    *pSchema = (struct ArrowSchema){                                      \
+    result.value = (struct ArrowSchema){                                  \
         .format = fmt,                                                    \
         .name = cname,                                                    \
         .metadata = cmeta,                                                \
         .release = &schemaReleaseFormatted,                               \
     };                                                                    \
+    result.ok = true;                                                     \
   free_fmt:                                                               \
-    if (!ok) free(fmt);                                                   \
+    if (!result.ok) free(fmt);                                            \
   free_cmeta:                                                             \
-    if (!ok) free(cmeta);                                                 \
+    if (!result.ok) free(cmeta);                                          \
   free_cname:                                                             \
-    if (!ok) free(cname);                                                 \
+    if (!result.ok) free(cname);                                          \
   finally:                                                                \
-    return ok;                                                            \
+    return result;                                                        \
   } while (0)
 
 marr_decl_def_schema_primitive(Null, "n");

@@ -8,115 +8,124 @@
 #include "marrow/arrow.h"
 
 ////// Primitives
-bool marrSchemaNull(struct ArrowSchema *pSchema, const char *zName,
-                    const char *zMetadata, int64_t flags);
-bool marrSchemaBoolean(struct ArrowSchema *pSchema, const char *zName,
-                       const char *zMetadata, int64_t flags);
-bool marrSchemaInt8(struct ArrowSchema *pSchema, const char *zName,
-                    const char *zMetadata, int64_t flags);
-bool marrSchemaUInt8(struct ArrowSchema *pSchema, const char *zName,
-                     const char *zMetadata, int64_t flags);
-bool marrSchemaInt16(struct ArrowSchema *pSchema, const char *zName,
-                     const char *zMetadata, int64_t flags);
-bool marrSchemaUInt16(struct ArrowSchema *pSchema, const char *zName,
-                      const char *zMetadata, int64_t flags);
-bool marrSchemaInt32(struct ArrowSchema *pSchema, const char *zName,
-                     const char *zMetadata, int64_t flags);
-bool marrSchemaUInt32(struct ArrowSchema *pSchema, const char *zName,
-                      const char *zMetadata, int64_t flags);
-bool marrSchemaInt64(struct ArrowSchema *pSchema, const char *zName,
-                     const char *zMetadata, int64_t flags);
-bool marrSchemaUInt64(struct ArrowSchema *pSchema, const char *zName,
-                      const char *zMetadata, int64_t flags);
-bool marrSchemaFloat16(struct ArrowSchema *pSchema, const char *zName,
-                       const char *zMetadata, int64_t flags);
-bool marrSchemaFloat32(struct ArrowSchema *pSchema, const char *zName,
-                       const char *zMetadata, int64_t flags);
-bool marrSchemaFloat64(struct ArrowSchema *pSchema, const char *zName,
-                       const char *zMetadata, int64_t flags);
-bool marrSchemaBinary(struct ArrowSchema *pSchema, const char *zName,
-                      const char *zMetadata, int64_t flags);
-bool marrSchemaLargeBinary(struct ArrowSchema *pSchema, const char *zName,
-                           const char *zMetadata, int64_t flags);
-bool marrSchemaBinaryView(struct ArrowSchema *pSchema, const char *zName,
-                          const char *zMetadata, int64_t flags);
-bool marrSchemaUtf8(struct ArrowSchema *pSchema, const char *zName,
-                    const char *zMetadata, int64_t flags);
-bool marrSchemaLargeUtf8(struct ArrowSchema *pSchema, const char *zName,
-                         const char *zMetadata, int64_t flags);
-bool marrSchemaUtf8View(struct ArrowSchema *pSchema, const char *zName,
-                        const char *zMetadata, int64_t flags);
-bool marrSchemaDecimal128(struct ArrowSchema *pSchema, const char *zName,
-                          const char *zMetadata, int64_t flags,
-                          ptrdiff_t precision, ptrdiff_t scale);
-bool marrSchemaDecimal(struct ArrowSchema *pSchema, const char *zName,
-                       const char *zMetadata, ptrdiff_t bitwidth, int64_t flags,
-                       ptrdiff_t precision, ptrdiff_t scale);
-bool marrSchemaDate32(struct ArrowSchema *pSchema, const char *zName,
-                      const char *zMetadata, int64_t flags);
-bool marrSchemaDate64(struct ArrowSchema *pSchema, const char *zName,
-                      const char *zMetadata, int64_t flags);
-bool marrSchemaTime32S(struct ArrowSchema *pSchema, const char *zName,
-                       const char *zMetadata, int64_t flags);
-bool marrSchemaTime32Ms(struct ArrowSchema *pSchema, const char *zName,
-                        const char *zMetadata, int64_t flags);
-bool marrSchemaTime64Us(struct ArrowSchema *pSchema, const char *zName,
-                        const char *zMetadata, int64_t flags);
-bool marrSchemaTime64Ns(struct ArrowSchema *pSchema, const char *zName,
-                        const char *zMetadata, int64_t flags);
-bool marrSchemaTimestampS(struct ArrowSchema *pSchema, const char *zName,
-                          const char *zMetadata, int64_t flags,
-                          const char *timezone);
-bool marrSchemaTimestampMs(struct ArrowSchema *pSchema, const char *zName,
-                           const char *zMetadata, int64_t flags,
-                           const char *timezone);
-bool marrSchemaTimestampUs(struct ArrowSchema *pSchema, const char *zName,
-                           const char *zMetadata, int64_t flags,
-                           const char *timezone);
-bool marrSchemaTimestampNs(struct ArrowSchema *pSchema, const char *zName,
-                           const char *zMetadata, int64_t flags,
-                           const char *timezone);
-bool marrSchemaDurationS(struct ArrowSchema *pSchema, const char *zName,
-                         const char *zMetadata, int64_t flags);
-bool marrSchemaDurationMs(struct ArrowSchema *pSchema, const char *zName,
-                          const char *zMetadata, int64_t flags);
-bool marrSchemaDurationUs(struct ArrowSchema *pSchema, const char *zName,
-                          const char *zMetadata, int64_t flags);
-bool marrSchemaDurationNs(struct ArrowSchema *pSchema, const char *zName,
-                          const char *zMetadata, int64_t flags);
-bool marrSchemaIntervalMonth(struct ArrowSchema *pSchema, const char *zName,
-                             const char *zMetadata, int64_t flags);
-bool marrSchemaIntervalDayTime(struct ArrowSchema *pSchema, const char *zName,
-                               const char *zMetadata, int64_t flags);
-bool marrSchemaIntervalMonthDayNs(struct ArrowSchema *pSchema,
-                                  const char *zName, const char *zMetadata,
+typedef struct {
+  union {
+    struct ArrowSchema value;
+    enum {
+      MARR_SCHEMA_ERR = 0,
+    } err;
+  };
+  bool ok;
+} ArrowSchemaCreated;
+ArrowSchemaCreated marrSchemaNull(const char *zName, const char *zMetadata,
                                   int64_t flags);
+ArrowSchemaCreated marrSchemaBoolean(const char *zName, const char *zMetadata,
+                                     int64_t flags);
+ArrowSchemaCreated marrSchemaInt8(const char *zName, const char *zMetadata,
+                                  int64_t flags);
+ArrowSchemaCreated marrSchemaUInt8(const char *zName, const char *zMetadata,
+                                   int64_t flags);
+ArrowSchemaCreated marrSchemaInt16(const char *zName, const char *zMetadata,
+                                   int64_t flags);
+ArrowSchemaCreated marrSchemaUInt16(const char *zName, const char *zMetadata,
+                                    int64_t flags);
+ArrowSchemaCreated marrSchemaInt32(const char *zName, const char *zMetadata,
+                                   int64_t flags);
+ArrowSchemaCreated marrSchemaUInt32(const char *zName, const char *zMetadata,
+                                    int64_t flags);
+ArrowSchemaCreated marrSchemaInt64(const char *zName, const char *zMetadata,
+                                   int64_t flags);
+ArrowSchemaCreated marrSchemaUInt64(const char *zName, const char *zMetadata,
+                                    int64_t flags);
+ArrowSchemaCreated marrSchemaFloat16(const char *zName, const char *zMetadata,
+                                     int64_t flags);
+ArrowSchemaCreated marrSchemaFloat32(const char *zName, const char *zMetadata,
+                                     int64_t flags);
+ArrowSchemaCreated marrSchemaFloat64(const char *zName, const char *zMetadata,
+                                     int64_t flags);
+ArrowSchemaCreated marrSchemaBinary(const char *zName, const char *zMetadata,
+                                    int64_t flags);
+ArrowSchemaCreated marrSchemaLargeBinary(const char *zName,
+                                         const char *zMetadata, int64_t flags);
+ArrowSchemaCreated marrSchemaBinaryView(const char *zName,
+                                        const char *zMetadata, int64_t flags);
+ArrowSchemaCreated marrSchemaUtf8(const char *zName, const char *zMetadata,
+                                  int64_t flags);
+ArrowSchemaCreated marrSchemaLargeUtf8(const char *zName, const char *zMetadata,
+                                       int64_t flags);
+ArrowSchemaCreated marrSchemaUtf8View(const char *zName, const char *zMetadata,
+                                      int64_t flags);
+ArrowSchemaCreated marrSchemaDecimal128(const char *zName,
+                                        const char *zMetadata, int64_t flags,
+                                        ptrdiff_t precision, ptrdiff_t scale);
+ArrowSchemaCreated marrSchemaDecimal(const char *zName, const char *zMetadata,
+                                     int64_t flags, ptrdiff_t precision,
+                                     ptrdiff_t scale, ptrdiff_t bitwidth);
+ArrowSchemaCreated marrSchemaDate32(const char *zName, const char *zMetadata,
+                                    int64_t flags);
+ArrowSchemaCreated marrSchemaDate64(const char *zName, const char *zMetadata,
+                                    int64_t flags);
+ArrowSchemaCreated marrSchemaTime32S(const char *zName, const char *zMetadata,
+                                     int64_t flags);
+ArrowSchemaCreated marrSchemaTime32Ms(const char *zName, const char *zMetadata,
+                                      int64_t flags);
+ArrowSchemaCreated marrSchemaTime64Us(const char *zName, const char *zMetadata,
+                                      int64_t flags);
+ArrowSchemaCreated marrSchemaTime64Ns(const char *zName, const char *zMetadata,
+                                      int64_t flags);
+ArrowSchemaCreated marrSchemaTimestampS(const char *zName,
+                                        const char *zMetadata, int64_t flags,
+                                        const char *timezone);
+ArrowSchemaCreated marrSchemaTimestampMs(const char *zName,
+                                         const char *zMetadata, int64_t flags,
+                                         const char *timezone);
+ArrowSchemaCreated marrSchemaTimestampUs(const char *zName,
+                                         const char *zMetadata, int64_t flags,
+                                         const char *timezone);
+ArrowSchemaCreated marrSchemaTimestampNs(const char *zName,
+                                         const char *zMetadata, int64_t flags,
+                                         const char *timezone);
+ArrowSchemaCreated marrSchemaDurationS(const char *zName, const char *zMetadata,
+                                       int64_t flags);
+ArrowSchemaCreated marrSchemaDurationMs(const char *zName,
+                                        const char *zMetadata, int64_t flags);
+ArrowSchemaCreated marrSchemaDurationUs(const char *zName,
+                                        const char *zMetadata, int64_t flags);
+ArrowSchemaCreated marrSchemaDurationNs(const char *zName,
+                                        const char *zMetadata, int64_t flags);
+ArrowSchemaCreated marrSchemaIntervalMonth(const char *zName,
+                                           const char *zMetadata,
+                                           int64_t flags);
+ArrowSchemaCreated marrSchemaIntervalDayTime(const char *zName,
+                                             const char *zMetadata,
+                                             int64_t flags);
+ArrowSchemaCreated marrSchemaIntervalMonthDayNs(const char *zName,
+                                                const char *zMetadata,
+                                                int64_t flags);
 ////// Nested types
-bool marrSchemaList(struct ArrowSchema *pSchema, const char *zName,
-                    const char *zMetadata, int64_t flags,
-                    struct ArrowSchema *child);
-bool marrSchemaLargeList(struct ArrowSchema *pSchema, const char *zName,
-                         const char *zMetadata, int64_t flags,
-                         struct ArrowSchema *child);
-bool marrSchemaListView(struct ArrowSchema *pSchema, const char *zName,
-                        const char *zMetadata, int64_t flags,
-                        struct ArrowSchema *child);
-bool marrSchemaLargeListView(struct ArrowSchema *pSchema, const char *zName,
-                             const char *zMetadata, int64_t flags,
-                             struct ArrowSchema *child);
-bool marrSchemaFixedList(struct ArrowSchema *pSchema, const char *zName,
-                         const char *zMetadata, int64_t flags,
-                         struct ArrowSchema *child, ptrdiff_t size);
+ArrowSchemaCreated marrSchemaList(const char *zName, const char *zMetadata,
+                                  int64_t flags, struct ArrowSchema *child);
+ArrowSchemaCreated marrSchemaLargeList(const char *zName, const char *zMetadata,
+                                       int64_t flags,
+                                       struct ArrowSchema *child);
+ArrowSchemaCreated marrSchemaListView(const char *zName, const char *zMetadata,
+                                      int64_t flags, struct ArrowSchema *child);
+ArrowSchemaCreated marrSchemaLargeListView(const char *zName,
+                                           const char *zMetadata, int64_t flags,
+                                           struct ArrowSchema *child);
+ArrowSchemaCreated marrSchemaFixedList(const char *zName, const char *zMetadata,
+                                       int64_t flags, struct ArrowSchema *child,
+                                       ptrdiff_t size);
 // TODO
-bool marrSchemaStruct(struct ArrowSchema *pSchema, const char *zName,
-                      const char *zMetadata, int64_t flags);
-bool marrSchemaMap(struct ArrowSchema *pSchema, const char *zName,
-                   const char *zMetadata, int64_t flags);
-bool marrSchemaDenseUnion(struct ArrowSchema *pSchema, const char *zName,
-                          const char *zMetadata, int64_t flags);
-bool marrSchemaSparseUnion(struct ArrowSchema *pSchema, const char *zName,
-                           const char *zMetadata, int64_t flags);
-bool marrSchemaRunEnd(struct ArrowSchema *pSchema, const char *zName,
-                      const char *zMetadata, int64_t flags);
+ArrowSchemaCreated marrSchemaStruct(const char *zName, const char *zMetadata,
+                                    int64_t flags);
+ArrowSchemaCreated marrSchemaMap(const char *zName, const char *zMetadata,
+                                 int64_t flags);
+ArrowSchemaCreated marrSchemaDenseUnion(const char *zName,
+                                        const char *zMetadata, int64_t flags);
+ArrowSchemaCreated marrSchemaSparseUnion(const char *zName,
+                                         const char *zMetadata, int64_t flags);
+ArrowSchemaCreated marrSchemaRunEnd(const char *zName, const char *zMetadata,
+                                    int64_t flags);
 
 #endif  // MARROW_SCHEMA_H_
