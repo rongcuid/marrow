@@ -3,8 +3,6 @@
 
 #include <stdbool.h>
 
-#include "error.h"
-
 /**
  * @brief Clones a null-terminated string. May allocate memory.
  *
