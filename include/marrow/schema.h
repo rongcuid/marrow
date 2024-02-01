@@ -1,3 +1,13 @@
+/**
+ * @file schema.h
+ * @author Rongcui Dong (rongcuid@outlook.com)
+ * @brief Low level schema manipulation functions
+ * @version 0.1
+ * @date 2024-01-26
+ *
+ * @copyright Copyright (c) 2024
+ *
+ */
 #ifndef MARROW_SCHEMA_H_
 #define MARROW_SCHEMA_H_
 
@@ -9,13 +19,11 @@
 
 ////// Primitives
 typedef struct {
+  bool ok;
   union {
     struct ArrowSchema value;
-    enum {
-      MARR_SCHEMA_ERR = 0,
-    } err;
+    int32_t _err_reserved;
   };
-  bool ok;
 } MarrSchemaCreated;
 MarrSchemaCreated marrSchemaNull(const char *zName, const char *zMetadata,
                                  int64_t flags);

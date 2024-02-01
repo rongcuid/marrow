@@ -30,6 +30,16 @@ static void schemaReleaseFormatted(struct ArrowSchema *pSchema) {
   pSchema->release = NULL;
 }
 
+static void schemaReleaseRecursive(struct ArrowSchema *pSchema) {
+  if (pSchema->name) free((void *)pSchema->name);
+  if (pSchema->metadata) free((void *)pSchema->name);
+  for (ptrdiff_t i = 0; i < pSchema->n_children; ++i) {
+    free(pSchema->children[i]);
+  }
+  free(pSchema->children);
+  pSchema->release = NULL;
+}
+
 #define marr_decl_schema_primitive(ty)                                        \
   ArrowSchemaCreated marrSchema##ty(const char *zName, const char *zMetadata, \
                                     int64_t flags)
@@ -144,3 +154,33 @@ marr_decl_def_schema_primitive(IntervalMonthDayNs, "tin");
 #undef marr_decl_schema_primitive
 #undef marr_decl_schema_primitive_args
 #undef marr_def_schema_primitive_formatted
+
+ArrowSchemaCreated marrSchemaList(const char *zName, const char *zMetadata,
+                                  int64_t flags, struct ArrowSchema *mChild) {
+  ArrowSchemaCreated result = {0};
+  char *cname;
+  if (!marrCloneCStr(&cname, zName)) goto finally;
+  char *cmeta;
+  if (!marrCloneCStr(&cmeta, zMetadata)) goto free_cname;
+  struct ArrowSchema **children = calloc(1, sizeof(struct ArrowSchema *));
+  if (!children) goto free_cmeta;
+  children[0] = mChild;
+  result.value = (struct ArrowSchema){
+      .format = "+l",
+      .name = cname,
+      .metadata = cmeta,
+      .release = &schemaReleaseRecursive,
+      .n_children = 1,
+      .children = children,
+  };
+ok:
+  result.ok = true;
+free_children:
+  if (!result.ok) free(children);
+free_cmeta:
+  if (!result.ok) free(cmeta);
+free_cname:
+  if (!result.ok) free(cname);
+finally:
+  return result;
+}
