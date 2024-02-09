@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "utils.h"
+#include "internal/utils.h"
 
 static void schemaReleaseStruct(struct ArrowSchema *pSchema) {
   if (pSchema->name) free((void *)pSchema->name);

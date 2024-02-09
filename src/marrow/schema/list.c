@@ -5,28 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "utils.h"
-
-static void schemaReleaseList(struct ArrowSchema *pSchema) {
-  if (pSchema->name) free((void *)pSchema->name);
-  if (pSchema->metadata) free((void *)pSchema->name);
-  for (ptrdiff_t i = 0; i < pSchema->n_children; ++i) {
-    pSchema->children[i]->release(pSchema->children[i]);
-  }
-  free(pSchema->children);
-  pSchema->release = NULL;
-}
-
-static void schemaReleaseListFormatted(struct ArrowSchema *pSchema) {
-  if (pSchema->name) free((void *)pSchema->name);
-  if (pSchema->metadata) free((void *)pSchema->name);
-  free((void *)pSchema->format);
-  for (ptrdiff_t i = 0; i < pSchema->n_children; ++i) {
-    pSchema->children[i]->release(pSchema->children[i]);
-  }
-  free(pSchema->children);
-  pSchema->release = NULL;
-}
+#include "internal/utils.h"
 
 #define marr_decl_def_schema_list(ty, fmt)                                   \
   MarrSchemaCreated marrSchema##ty(const char *zName, const char *zMetadata, \
@@ -44,7 +23,7 @@ static void schemaReleaseListFormatted(struct ArrowSchema *pSchema) {
         .format = "+l",                                                      \
         .name = cname,                                                       \
         .metadata = cmeta,                                                   \
-        .release = &schemaReleaseList,                                       \
+        .release = &schemaReleaseRecursive,                                  \
         .n_children = 1,                                                     \
         .children = children,                                                \
     };                                                                       \
@@ -86,7 +65,7 @@ MarrSchemaCreated marrSchemaFixedList(const char *zName, const char *zMetadata,
       .format = fmt,
       .name = cname,
       .metadata = cmeta,
-      .release = &schemaReleaseListFormatted,
+      .release = &schemaReleaseRecursiveFormatted,
       .n_children = 1,
       .children = children,
   };

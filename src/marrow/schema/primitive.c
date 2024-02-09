@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "internal/utils.h"
 #include "marrow/schema/result.h"
-#include "utils.h"
 
 /**
  * @brief Release function for schemas with no format allocations

@@ -3,6 +3,8 @@
 
 #include <stdbool.h>
 
+#include "marrow/arrow.h"
+
 /**
  * @brief Clones a null-terminated string. May allocate memory.
  *
@@ -11,5 +13,8 @@
  * @return Success
  */
 bool marrCloneCStr(char **pNewStr, const char *zStr);
+
+void schemaReleaseRecursive(struct ArrowSchema *pSchema);
+void schemaReleaseRecursiveFormatted(struct ArrowSchema *pSchema);
 
 #endif
