@@ -34,22 +34,22 @@ static void schemaReleaseRecursive(struct ArrowSchema *pSchema) {
   if (pSchema->name) free((void *)pSchema->name);
   if (pSchema->metadata) free((void *)pSchema->name);
   for (ptrdiff_t i = 0; i < pSchema->n_children; ++i) {
-    free(pSchema->children[i]);
+    pSchema->children[i]->release(pSchema->children[i]);
   }
   free(pSchema->children);
   pSchema->release = NULL;
 }
 
-#define marr_decl_schema_primitive(ty)                                        \
-  ArrowSchemaCreated marrSchema##ty(const char *zName, const char *zMetadata, \
-                                    int64_t flags)
-#define marr_decl_schema_primitive_args(ty, ...)                              \
-  ArrowSchemaCreated marrSchema##ty(const char *zName, const char *zMetadata, \
-                                    int64_t flags, __VA_ARGS__)
+#define marr_decl_schema_primitive(ty)                                       \
+  MarrSchemaCreated marrSchema##ty(const char *zName, const char *zMetadata, \
+                                   int64_t flags)
+#define marr_decl_schema_primitive_args(ty, ...)                             \
+  MarrSchemaCreated marrSchema##ty(const char *zName, const char *zMetadata, \
+                                   int64_t flags, __VA_ARGS__)
 
 #define marr_decl_def_schema_primitive(ty, fmt_str)         \
   marr_decl_schema_primitive(ty) {                          \
-    ArrowSchemaCreated result = {0};                        \
+    MarrSchemaCreated result = {0};                         \
     char *cname;                                            \
     if (!marrCloneCStr(&cname, zName)) goto finally;        \
     char *cmeta;                                            \
@@ -71,7 +71,7 @@ static void schemaReleaseRecursive(struct ArrowSchema *pSchema) {
 
 #define marr_def_schema_primitive_formatted(fmt_str, ...)                 \
   do {                                                                    \
-    ArrowSchemaCreated result = {0};                                      \
+    MarrSchemaCreated result = {0};                                       \
     char *cname;                                                          \
     if (!marrCloneCStr(&cname, zName)) goto finally;                      \
     char *cmeta;                                                          \
@@ -155,9 +155,9 @@ marr_decl_def_schema_primitive(IntervalMonthDayNs, "tin");
 #undef marr_decl_schema_primitive_args
 #undef marr_def_schema_primitive_formatted
 
-ArrowSchemaCreated marrSchemaList(const char *zName, const char *zMetadata,
-                                  int64_t flags, struct ArrowSchema *mChild) {
-  ArrowSchemaCreated result = {0};
+MarrSchemaCreated marrSchemaList(const char *zName, const char *zMetadata,
+                                 int64_t flags, struct ArrowSchema *mChild) {
+  MarrSchemaCreated result = {0};
   char *cname;
   if (!marrCloneCStr(&cname, zName)) goto finally;
   char *cmeta;
