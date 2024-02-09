@@ -11,8 +11,6 @@
 #ifndef MARROW_SCHEMA_H_
 #define MARROW_SCHEMA_H_
 
-#include <stdbool.h>
-#include <stddef.h>
 #include <stdint.h>
 
 #include "marrow/arrow.h"
