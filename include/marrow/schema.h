@@ -17,10 +17,10 @@
 
 #include "marrow/arrow.h"
 // Primitive types
-#include "schema/primitive.h"  // IWYU: export
+#include "schema/primitive.h"  // IWYU pragma: export
 // Nested types
-#include "schema/list.h"    // IWYU: export
-#include "schema/struct.h"  // IWYU: export
+#include "schema/list.h"    // IWYU pragma: export
+#include "schema/struct.h"  // IWYU pragma: export
 
 // TODO
 
