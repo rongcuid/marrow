@@ -29,6 +29,7 @@ void schemaReleaseRecursive(struct ArrowSchema *pSchema) {
   if (pSchema->metadata) free((void *)pSchema->name);
   for (ptrdiff_t i = 0; i < pSchema->n_children; ++i) {
     pSchema->children[i]->release(pSchema->children[i]);
+    free(pSchema->children[i]);
   }
   free(pSchema->children);
   pSchema->release = NULL;
@@ -40,6 +41,7 @@ void schemaReleaseRecursiveFormatted(struct ArrowSchema *pSchema) {
   free((void *)pSchema->format);
   for (ptrdiff_t i = 0; i < pSchema->n_children; ++i) {
     pSchema->children[i]->release(pSchema->children[i]);
+    free(pSchema->children[i]);
   }
   free(pSchema->children);
   pSchema->release = NULL;
