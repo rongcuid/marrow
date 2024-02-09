@@ -11,6 +11,8 @@
   * If must have unlimited lifetime: prefix `s` (static)
   * Otherwise, prefix `p` (pointer)
     * Any objects are copied locally, so they MUST only need to outlive the call
+  * Pointer to pointers will have multiple prefixes in the same order as `*`
+    * So `struct ArrowSchema **pmChildren` will move ownership of all the `struct ArrowSchema` objects, but not the array
 
 ## Calling Convention of public API
 

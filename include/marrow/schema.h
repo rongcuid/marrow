@@ -23,8 +23,7 @@
 #include "schema/struct.h"  // IWYU: export
 
 // TODO
-MarrSchemaCreated marrSchemaMap(const char *zName, const char *zMetadata,
-                                int64_t flags);
+
 MarrSchemaCreated marrSchemaDenseUnion(const char *zName, const char *zMetadata,
                                        int64_t flags);
 MarrSchemaCreated marrSchemaSparseUnion(const char *zName,
