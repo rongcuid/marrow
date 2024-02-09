@@ -16,23 +16,11 @@
 #include <stdint.h>
 
 #include "marrow/arrow.h"
-
-////// Primitives
+// Primitive types
 #include "schema/primitive.h"  // IWYU: export
+// Nested types
+#include "schema/list.h"  // IWYU: export
 
-////// Nested types
-MarrSchemaCreated marrSchemaList(const char *zName, const char *zMetadata,
-                                 int64_t flags, struct ArrowSchema *child);
-MarrSchemaCreated marrSchemaLargeList(const char *zName, const char *zMetadata,
-                                      int64_t flags, struct ArrowSchema *child);
-MarrSchemaCreated marrSchemaListView(const char *zName, const char *zMetadata,
-                                     int64_t flags, struct ArrowSchema *child);
-MarrSchemaCreated marrSchemaLargeListView(const char *zName,
-                                          const char *zMetadata, int64_t flags,
-                                          struct ArrowSchema *child);
-MarrSchemaCreated marrSchemaFixedList(const char *zName, const char *zMetadata,
-                                      int64_t flags, struct ArrowSchema *child,
-                                      ptrdiff_t size);
 // TODO
 MarrSchemaCreated marrSchemaStruct(const char *zName, const char *zMetadata,
                                    int64_t flags);

@@ -1,4 +1,4 @@
-#include "marrow/schema.h"
+#include "marrow/schema/list.h"
 
 #include <stdbool.h>
 #include <stdio.h>
