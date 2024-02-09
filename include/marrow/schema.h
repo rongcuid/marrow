@@ -19,11 +19,10 @@
 // Primitive types
 #include "schema/primitive.h"  // IWYU: export
 // Nested types
-#include "schema/list.h"  // IWYU: export
+#include "schema/list.h"    // IWYU: export
+#include "schema/struct.h"  // IWYU: export
 
 // TODO
-MarrSchemaCreated marrSchemaStruct(const char *zName, const char *zMetadata,
-                                   int64_t flags);
 MarrSchemaCreated marrSchemaMap(const char *zName, const char *zMetadata,
                                 int64_t flags);
 MarrSchemaCreated marrSchemaDenseUnion(const char *zName, const char *zMetadata,

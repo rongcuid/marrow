@@ -83,7 +83,7 @@ MarrSchemaCreated marrSchemaFixedList(const char *zName, const char *zMetadata,
   if (!children) goto free_fmt;
   children[0] = mChild;
   result.value = (struct ArrowSchema){
-      .format = "+l",
+      .format = fmt,
       .name = cname,
       .metadata = cmeta,
       .release = &schemaReleaseListFormatted,
