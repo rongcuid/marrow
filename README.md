@@ -8,6 +8,7 @@
   * If nullable: prefix `z` (zero)
   * If taking ownership: prefix `m` (move)
     * Caller MUST ensure objects live long enough and MUST NOT use existing handles afterwards.
+  * If must have unlimited lifetime: prefix `s` (static)
   * Otherwise, prefix `p` (pointer)
     * Any objects are copied locally, so they MUST only need to outlive the call
 
