@@ -7,7 +7,7 @@
 
 #include "utils.h"
 
-static void schemaReleaseRecursive(struct ArrowSchema *pSchema) {
+static void schemaReleaseList(struct ArrowSchema *pSchema) {
   if (pSchema->name) free((void *)pSchema->name);
   if (pSchema->metadata) free((void *)pSchema->name);
   for (ptrdiff_t i = 0; i < pSchema->n_children; ++i) {
@@ -17,7 +17,7 @@ static void schemaReleaseRecursive(struct ArrowSchema *pSchema) {
   pSchema->release = NULL;
 }
 
-static void schemaReleaseRecursiveFormatted(struct ArrowSchema *pSchema) {
+static void schemaReleaseListFormatted(struct ArrowSchema *pSchema) {
   if (pSchema->name) free((void *)pSchema->name);
   if (pSchema->metadata) free((void *)pSchema->name);
   free((void *)pSchema->format);
@@ -44,7 +44,7 @@ static void schemaReleaseRecursiveFormatted(struct ArrowSchema *pSchema) {
         .format = "+l",                                                      \
         .name = cname,                                                       \
         .metadata = cmeta,                                                   \
-        .release = &schemaReleaseRecursive,                                  \
+        .release = &schemaReleaseList,                                       \
         .n_children = 1,                                                     \
         .children = children,                                                \
     };                                                                       \
@@ -86,7 +86,7 @@ MarrSchemaCreated marrSchemaFixedList(const char *zName, const char *zMetadata,
       .format = "+l",
       .name = cname,
       .metadata = cmeta,
-      .release = &schemaReleaseRecursiveFormatted,
+      .release = &schemaReleaseListFormatted,
       .n_children = 1,
       .children = children,
   };
