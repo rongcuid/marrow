@@ -1,5 +1,9 @@
 # Marrow (m-arrow)
 
+## TODO
+
+- [ ] Copy and not move children
+
 ## Naming Convention of public API
 
 * Functions: `camelCase` with `marr` as prefix
